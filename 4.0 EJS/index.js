@@ -4,7 +4,17 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", { dayType: "weekday", advice: "Take it easy!" });
+  const today = new Date();
+  let day = today.getDay();
+  let type = "a weekday";
+  let adv = "it'time to work hard";
+
+  if (day === 0 || day === 6) {
+    type = "the weekend";
+    adv = "it's time to relax";
+  }
+
+  res.render("index.ejs", { dayType: type, advice: adv });
 });
 
 app.listen(port, () => {
